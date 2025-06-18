@@ -35,7 +35,7 @@ services:
       - ".docker/mysql/conf.d:/etc/mysql/conf.d:ro"
       - ".docker/mysql/data:/var/lib/mysql"
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel-user
+      MYSQL_PASSWORD: password
