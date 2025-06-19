@@ -5,11 +5,26 @@
 </head>
 <body>
 <h1>Laravel News</h1>
-<p>お知らせ</p>
-<ul>
+<p>お知らせ一覧</p>
+
+<p><a href="/News/Create">お知らせの登録</a></p>
+
+<table>
+    <tr><th align="left">No.</th><th align="left">Title</th><th align="left">Content</th><th align="left">date</th></tr>
     @foreach($list as $item)
-        <li>{{ $item->title }} - {{ $item->body }}</li>
+
+        <tr>
+            <td>{{$item->id.'.'}}</td>
+            <td><a href="{{route('news.show',['news'=>$item->id])}}">{{ $item->title }}</a></td>
+            <td>{{ $item->body }}</td>
+            <td>{{$item->created_at}}</td>
+        </tr>
+
     @endforeach
-</ul>
+</table>
+
+@if(session('success'))
+    <p>{{session('success')}}</p>
+@endif
 </body>
 </html>

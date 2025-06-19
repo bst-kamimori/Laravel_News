@@ -1,16 +1,41 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
+
+use App\Models\News;
+use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $list = DB::select('select * from news');
+        $list = news::all();
+        return view('news.index', ['list' => $list]);
+    }
+    public function create()
+    {
+        return view('news.create');
+    }
 
-        return view('news.index',['list'=>$list]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
 
+        $news = new News();
+        $news->title = $request->input('title');
+        $news->body = $request->input('body');
+        $news->save();
+
+        return redirect('/News')->with('success','投稿が保存されました！');
+    }
+
+    public function show(News $news)
+    {
+
+        return view('news.show', ['news' => $news]);
     }
 
 }
