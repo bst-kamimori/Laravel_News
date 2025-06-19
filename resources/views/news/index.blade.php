@@ -7,7 +7,7 @@
 <h1>Laravel News</h1>
 <p>お知らせ一覧</p>
 
-<p><a href="/News/Create">お知らせの登録</a></p>
+<p><a href="{{route('news.create')}}">お知らせの登録</a></p>
 
 <table>
     <tr><th align="left">No.</th><th align="left">Title</th><th align="left">Content</th><th align="left">date</th></tr>

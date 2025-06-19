@@ -38,4 +38,20 @@ class NewsController extends Controller
         return view('news.show', ['news' => $news]);
     }
 
+    public function edit(News $news)
+    {
+        return view('news.edit',['news'=>$news]);
+    }
+
+    public function update(Request $request,News $news)
+    {
+        $news->title = $request->input('title');
+        $news->body = $request->input('body');
+        $news->save();
+
+        return redirect()->route('news.show',['news'=>$news->id])
+            ->with('success',"更新しました！");
+    }
+
+
 }
