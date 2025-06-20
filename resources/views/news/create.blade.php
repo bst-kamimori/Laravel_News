@@ -5,8 +5,7 @@
     <title>新規作成ページ</title>
 </head>
 <body>
-    <h1>新規お知らせフォーム</h1>
-
+    <h2>新規お知らせフォーム</h2>
     <form action="{{route('news.store')}}" method="POST">
     @csrf
         <table>

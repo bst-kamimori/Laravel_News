@@ -9,8 +9,17 @@ class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        $list = news::all();
-        return view('news.index', ['list' => $list]);
+        $sort=$request->query('sort','1');
+
+        $s_url=$sort === '0' ? 'asc':'desc';
+
+        $list = News::orderBy('created_at',$s_url)
+                ->simplePaginate(3);
+
+        return view('news.index',
+            ['list' => $list,
+            'sort'=>$sort
+            ]);
     }
     public function create()
     {
@@ -21,7 +30,7 @@ class NewsController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'body' => 'required',
+            'body' => 'required|between:0,15',
         ]);
 
         $news = new News();
@@ -51,6 +60,12 @@ class NewsController extends Controller
 
         return redirect()->route('news.show',['news'=>$news->id])
             ->with('success',"更新しました！");
+    }
+
+    public function delete(News $news)
+    {
+        $news->delete();
+        return redirect()->route('news.index')->with('remove','削除しました!');
     }
 
 
