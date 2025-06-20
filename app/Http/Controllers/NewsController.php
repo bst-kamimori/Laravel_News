@@ -14,7 +14,7 @@ class NewsController extends Controller
         $s_url=$sort === '0' ? 'asc':'desc';
 
         $list = News::orderBy('created_at',$s_url)
-                ->simplePaginate(3);
+                ->simplePaginate(6);
 
         return view('news.index',
             ['list' => $list,
