@@ -4,8 +4,8 @@
     <title>Laravel News</title>
 </head>
 <body>
-<h1>Laravel News</h1>
-<p>お知らせ一覧</p>
+<h1><a href="/News">Laravel News</a></h1>
+<h3>お知らせ一覧</h3>
 
 <p><a href="{{route('news.create')}}">お知らせの登録</a></p>
 

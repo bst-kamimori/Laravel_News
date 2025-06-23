@@ -21,7 +21,8 @@ class NewsController extends Controller
         }
 
         $list = $query->orderBy('created_at',$s_url)
-                ->simplePaginate(6);
+                ->simplePaginate(6)
+                ->withQueryString();
 
         return view('news.index',compact('list','keyword','sort'));
     }
