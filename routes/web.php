@@ -11,9 +11,9 @@ Route::prefix('News')
     Route::get('', 'index')->name('index');
     Route::post('','store')->name('store');
     Route::get('create','create')->name('create');
-    Route::get('{news}','show')->name('show');
-    Route::put('{news}','update')->name('update');
-    Route::delete('{news}','delete')->name('delete');
-    Route::get('{news}/edit','edit')->name('edit');
+    Route::get('{id}','show')->name('show');
+    Route::put('{id}','update')->name('update');
+    Route::delete('{id}','delete')->name('delete');
+    Route::get('{id}/edit','edit')->name('edit');
 });
 

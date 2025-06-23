@@ -17,13 +17,13 @@
             <tr><td>{{$news->updated_at}}</td></tr>
     </table>
 
-    <form action="{{route('news.delete',['news'=>$news->id])}}" method="POST" onsubmit="return confirm('削除しますか？');">
+    <form action="{{route('news.delete',['id'=>$news->id])}}" method="POST" onsubmit="return confirm('削除しますか？');">
         @csrf
         @method('DELETE')
         <button type="submit">削除</button>
     </form>
 
-<p><a href="{{route('news.edit',['news'=>$news->id])}}">編集する</a> </p>
+<p><a href="{{route('news.edit',['id'=>$news->id])}}">編集する</a> </p>
 <p><a href="/News">お知らせ一覧へ</a></p>
 
 </body>

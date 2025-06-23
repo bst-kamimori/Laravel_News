@@ -34,8 +34,8 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'body' => 'required|between:0,15',
+            'title' => 'required|min:0|max:5',
+            'body' => 'required|min:0|max:5',
         ]);
 
         $news = new News();
@@ -46,29 +46,32 @@ class NewsController extends Controller
         return redirect('/News')->with('success','投稿が保存されました！');
     }
 
-    public function show(News $news)
+    public function show($id)
     {
-
-        return view('news.show', ['news' => $news]);
+        $news=News::findOrFail($id);
+        return view('news.show', compact('news'));
     }
 
-    public function edit(News $news)
+    public function edit($id)
     {
-        return view('news.edit',['news'=>$news]);
+        $news=News::findOrFail($id);
+        return view('news.edit',compact('news'));
     }
 
-    public function update(Request $request,News $news)
+    public function update(Request $request,$id)
     {
+        $news=News::findOrFail($id);
         $news->title = $request->input('title');
         $news->body = $request->input('body');
         $news->save();
 
-        return redirect()->route('news.show',['news'=>$news->id])
+        return redirect()->route('news.show',['id'=>$news->id])
             ->with('success',"更新しました！");
     }
 
-    public function delete(News $news)
+    public function delete($id)
     {
+        $news=News::findOrFail($id);
         $news->delete();
         return redirect()->route('news.index')->with('remove','削除しました!');
     }

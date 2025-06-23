@@ -7,7 +7,7 @@
 
 <h2>編集</h2>
 
-<form action="{{route('news.update',['news'=>$news->id])}}" method="POST">
+<form action="{{route('news.update',['id'=>$news->id])}}" method="POST">
     @csrf
     @method('PUT')
 
@@ -19,7 +19,7 @@
 </table>
 
     <p><button type="submit">更新する</button>
-        <a href="{{route('news.show',['news'=>$news->id])}}">戻る</a>
+        <a href="{{route('news.show',['id'=>$news->id])}}">戻る</a>
     </p>
 
 </form>

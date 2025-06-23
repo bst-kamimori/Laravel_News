@@ -32,7 +32,7 @@
 
         <tr>
             <td>{{$index+1}}.</td>
-            <td><a href="{{route('news.show',['news'=>$item->id])}}">{{ $item->title }}</a></td>
+            <td><a href="{{route('news.show',['id'=>$item->id])}}">{{ $item->title }}</a></td>
             <td>{{ $item->body }}</td>
             <td>{{$item->created_at}}</td>
         </tr>
