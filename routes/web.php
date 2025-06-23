@@ -3,12 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 
-Route::get('/News',  [NewsController::class,'index'])->name('news.index');
-Route::post('/News',[NewsController::class,'store'])->name('news.store');
-Route::get('/News/create',[NewsController::class,'create'])->name('news.create');
-Route::get('/News/{n_id}',[NewsController::class,'show'])->name('news.show');
-Route::put('/News/{n_id}',[NewsController::class,'update'])->name('news.update');
-Route::delete('/News/{n_id}',[NewsController::class,'delete'])->name('news.delete');
-Route::get('/News/{n_id}/edit',[NewsController::class,'edit'])->name('news.edit');
 
-//Route::group()
+Route::prefix('News')
+    ->name('news.')
+    ->controller(NewsController::class)
+    ->group(function(){
+    Route::get('', 'index')->name('index');
+    Route::post('','store')->name('store');
+    Route::get('create','create')->name('create');
+    Route::get('{news}','show')->name('show');
+    Route::put('{news}','update')->name('update');
+    Route::delete('{news}','delete')->name('delete');
+    Route::get('{news}/edit','edit')->name('edit');
+});
+

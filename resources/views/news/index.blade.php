@@ -9,11 +9,16 @@
 
 <p><a href="{{route('news.create')}}">お知らせの登録</a></p>
 
+<form action="{{route('news.index')}}" method="GET">
+    <input type="text" name="keyword" value="{{$keyword??''}}">
+    <button type="submit">検索</button>
+</form>
+
 @php
     $nextSort=($sort === '1') ? '0' : '1';
 @endphp
 
-<a href ="{{route('news.index',['sort'=>$nextSort])}}">投稿日付でソート({{$sort === '0' ? '昇順' : '降順' }})
+<a href ="{{route('news.index',['sort'=>$nextSort,'keyword'=>$keyword])}}">投稿日付でソート({{$sort === '0' ? '昇順' : '降順' }})
 </a>
 
 <table>
@@ -27,7 +32,7 @@
 
         <tr>
             <td>{{$index+1}}.</td>
-            <td><a href="{{route('news.show',['n_id'=>$item->id])}}">{{ $item->title }}</a></td>
+            <td><a href="{{route('news.show',['news'=>$item->id])}}">{{ $item->title }}</a></td>
             <td>{{ $item->body }}</td>
             <td>{{$item->created_at}}</td>
         </tr>

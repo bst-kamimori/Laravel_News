@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<h2>No.{{$news->id}}の編集</h2>
+<h2>編集</h2>
 
 <form action="{{route('news.update',['news'=>$news->id])}}" method="POST">
     @csrf

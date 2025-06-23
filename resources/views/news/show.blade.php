@@ -17,7 +17,7 @@
             <tr><td>{{$news->updated_at}}</td></tr>
     </table>
 
-    <form action="{{route('news.delete',$news->id)}}" method="POST" onsubmit="return confirm('削除しますか？');">
+    <form action="{{route('news.delete',['news'=>$news->id])}}" method="POST" onsubmit="return confirm('削除しますか？');">
         @csrf
         @method('DELETE')
         <button type="submit">削除</button>

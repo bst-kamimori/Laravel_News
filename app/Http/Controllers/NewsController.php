@@ -10,16 +10,20 @@ class NewsController extends Controller
     public function index(Request $request)
     {
         $sort=$request->query('sort','1');
-
         $s_url=$sort === '0' ? 'asc':'desc';
+        $keyword=$request->input('keyword');
 
-        $list = News::orderBy('created_at',$s_url)
+        $query=News::query();
+
+        if(!empty($keyword)){
+            $query->where('title','LIKE',"%{$keyword}%")
+                ->orWhere('body','LIKE',"%{$keyword}%");
+        }
+
+        $list = $query->orderBy('created_at',$s_url)
                 ->simplePaginate(6);
 
-        return view('news.index',
-            ['list' => $list,
-            'sort'=>$sort
-            ]);
+        return view('news.index',compact('list','keyword','sort'));
     }
     public function create()
     {
