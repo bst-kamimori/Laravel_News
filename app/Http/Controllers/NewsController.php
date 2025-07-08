@@ -9,20 +9,22 @@ class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        $sort=$request->query('sort','1');
-        $s_url=$sort === '0' ? 'asc':'desc';
+        $sort = $request->query('sort','1');
+        $s_url = $sort === '0' ? 'asc' : 'desc';
         $keyword=$request->input('keyword');
 
         $query=News::query();
 
-        if(!empty($keyword)){
+        if(!empty($keyword)) {
             $query->where('title','LIKE',"%{$keyword}%")
                 ->orWhere('body','LIKE',"%{$keyword}%");
         }
 
         $list = $query->orderBy('created_at',$s_url)
-                ->simplePaginate(6)
+                ->paginate(6)
                 ->withQueryString();
+
+        $query = News::all();
 
         return view('news.index',compact('list','keyword','sort'));
     }
@@ -76,5 +78,7 @@ class NewsController extends Controller
         return redirect()->route('news.index')->with('remove','削除しました!');
     }
 
-
 }
+
+
+
