@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 
 class NewsController extends Controller
 {
@@ -21,10 +23,8 @@ class NewsController extends Controller
         }
 
         $list = $query->orderBy('created_at',$s_url)
-                ->paginate(6)
+                ->paginate(5)
                 ->withQueryString();
-
-        $query = News::all();
 
         return view('news.index',compact('list','keyword','sort'));
     }
@@ -36,8 +36,8 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|min:0|max:5',
-            'body' => 'required|min:0|max:5',
+            'title' => 'required|min:0|max:500',
+            'body' => 'required|min:0|max:60000',
         ]);
 
         $news = new News();
@@ -62,6 +62,11 @@ class NewsController extends Controller
 
     public function update(Request $request,$id)
     {
+        $request->validate([
+           'title'=>'required | min:1 | max:500',
+            'body' => 'required | min:1 | max:6000'
+        ]);
+
         $news=News::findOrFail($id);
         $news->title = $request->input('title');
         $news->body = $request->input('body');
@@ -73,9 +78,13 @@ class NewsController extends Controller
 
     public function delete($id)
     {
-        $news=News::findOrFail($id);
-        $news->delete();
-        return redirect()->route('news.index')->with('remove','削除しました!');
+        try{
+            $news=News::findOrFail($id);
+            $news->delete();
+            return redirect()->route('news.index')->with('remove','削除しました!');
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
     }
 
 }

@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Laravel News</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <h1><a href="/News">Laravel News</a></h1>
@@ -40,8 +41,7 @@
     @endforeach
 </table>　　　　
 <div>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    {{ $list->links() }}
+    {{ $list->appends(request()->query())->links('vendor.pagination.pagination') }}
 </div>
 
 @if(session('success'))
