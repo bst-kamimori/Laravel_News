@@ -37,7 +37,7 @@
 
                 @endif
 
-                {{-- 検索時、定数よりもページ数が少ない時 --}}
+                {{-- 検索時に定数よりもページ数が少ない時 --}}
             @else
                 <?php $start_page = 1; ?>
                 <?php $end_page = $paginator->lastPage(); ?>

@@ -39,7 +39,13 @@
         </tr>
 
     @endforeach
+
 </table>　　　　
+
+@if($list->isEmpty() && isset($keyword))
+    <p>「{{$keyword}}」はヒットしませんでした。</p>
+@endif
+
 <div>
     {{ $list->appends(request()->query())->links('vendor.pagination.pagination') }}
 </div>
